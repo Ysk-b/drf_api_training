@@ -47,3 +47,14 @@ class Profile(models.Model):
     img = models.ImageField(upload_to=upload_path, null=True, blank=True)
     def __str__(self):
         return self.nickName
+
+class FriendRequest(models.Model):
+    askFrom = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='askFrom', on_delete=models.CASCADE)
+    askTo = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='askTo', on_delete=models.CASCADE)
+    approved = models.BooleanField(default=False)
+
+    class Meta:
+        # モデルの中で、askFromとaskToの組み合わせがユニークであることを示す
+        unique_together = ('askFrom', 'askTo')
+    def __str__(self):
+        return str(self.aslFrom) + '----->' + str(self.askTo)
