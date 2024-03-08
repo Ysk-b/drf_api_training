@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.conf import settings
+
+def upload_path(instance, filename):
+    ext = filename.split('.')[-1]
+    return '/'.join(['image'], str(instance.userPro.id)+str(instance.nickName)+str(".")+str(ext))
 
 class UserManager(BaseUserManager):
     # 新規ユーザー作成
@@ -33,3 +38,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+# Profile Models
+class Profile(models.Model):
+    nickName = models.CharField(max_length=20)
+    userPro = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='userPro', on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    img = models.ImageField(upload_to=upload_path, null=True, blank=True)
+    def __str__(self):
+        return self.nickName
