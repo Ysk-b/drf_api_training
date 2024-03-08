@@ -58,3 +58,11 @@ class FriendRequest(models.Model):
         unique_together = ('askFrom', 'askTo')
     def __str__(self):
         return str(self.aslFrom) + '----->' + str(self.askTo)
+
+class Message(models.Model):
+    message = models.CharField(max_length=100)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sender', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='receiver', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.sender
