@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics, authentication, permissions
 from api_user import serializers
 from core.models import Profile, FriendRequest
