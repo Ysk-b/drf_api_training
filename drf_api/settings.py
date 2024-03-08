@@ -116,5 +116,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# 複数のユーザーモデルを使用する場合、デフォルトのユーザーモデルを変更する
+# 以下の設定により、core.Userをデフォルトのユーザーモデルとして認証に使用することができる
+AUTH_USER_MODEL = 'core.User'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
